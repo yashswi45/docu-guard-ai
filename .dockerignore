@@ -1,0 +1,16 @@
+# Ignore the frontend completely for the backend build
+frontend/
+
+# Ignore virtual environments
+venv/
+.venv/
+env/
+
+# Ignore Git and Environment variables
+.git/
+.env
+.idea/
+
+# Ignore caches
+__pycache__/
+*.pyc
