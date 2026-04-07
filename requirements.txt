@@ -5,3 +5,5 @@ langchain-groq
 python-dotenv
 setuptools<70.0.0
 litellm
+motor
+pydantic
