@@ -1,0 +1,21 @@
+# Environments & Keys
+.env
+.env.*
+*.pem
+
+# Python & Backend
+__pycache__/
+venv/
+.venv/
+env/
+*.pyc
+
+# Node & Frontend
+node_modules/
+.next/
+dist/
+build/
+
+# OS Files
+.DS_Store
+Thumbs.db
