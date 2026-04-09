@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import os
 from motor.motor_asyncio import AsyncIOMotorClient
 import datetime
+from fastapi.middleware.cors import CORSMiddleware
 
 # Setup MongoDB client (Add your URI to .env)
 client = AsyncIOMotorClient(os.getenv("MONGO_URI"))
@@ -16,10 +17,16 @@ app = FastAPI()
 # Add CORS Middleware so React can talk to FastAPI
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # In production, replace with your Vercel URL
+    allow_origins=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "https://docu-guard-ai-rho.vercel.app" # <-- YOUR EXACT VERCEL URL (No slash at the end!)
+    ],
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 
 class CodeRequest(BaseModel):
