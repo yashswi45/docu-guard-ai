@@ -2,21 +2,26 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShieldCheck, Cpu, Code2, AlertTriangle, Terminal, Loader2, Zap } from 'lucide-react';
+// Removed AlertTriangle here so Vercel stops crashing your builds!
+import { ShieldCheck, Cpu, Code2, Terminal, Loader2, Zap } from 'lucide-react';
 
 function App() {
   const [code, setCode] = useState('');
   const [report, setReport] = useState('');
   const [loading, setLoading] = useState(false);
 
+  // Dynamically switch between Render (Production) and Localhost (Development)
+  const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:8000';
+
   const handleAudit = async () => {
     setLoading(true);
     setReport('');
     try {
-      const response = await axios.post('http://127.0.0.1:8000/audit', { code });
+      // Now pointing to the dynamic URL!
+      const response = await axios.post(`${API_BASE_URL}/audit`, { code });
       setReport(response.data.report);
     } catch (error) {
-      setReport("## ❌ Connection Error\nCheck if the FastAPI backend is running.");
+      setReport(`## ❌ Connection Error\nCould not connect to the backend at ${API_BASE_URL}. Check if the FastAPI server is running and CORS is configured.`);
     }
     setLoading(false);
   };
@@ -54,7 +59,7 @@ function App() {
           <textarea
             value={code}
             onChange={(e) => setCode(e.target.value)}
-            className="w-100 w-full h-[450px] bg-[#020617] text-blue-300 font-monospace p-6 rounded-2xl border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all resize-none shadow-inner"
+            className="w-full h-[450px] bg-[#020617] text-blue-300 font-mono p-6 rounded-2xl border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all resize-none shadow-inner"
             placeholder="paste your code snippet here..."
           />
 
