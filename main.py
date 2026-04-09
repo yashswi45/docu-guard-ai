@@ -15,13 +15,11 @@ db = client.docu_guard_db
 
 app = FastAPI()
 # Add CORS Middleware so React can talk to FastAPI
+# ... your app = FastAPI() line ...
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-        "https://docu-guard-ai-rho.vercel.app" # <-- YOUR EXACT VERCEL URL (No slash at the end!)
-    ],
+    allow_origins=["*"],  # The Wildcard Nuke! Allows any frontend to connect.
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
