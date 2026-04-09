@@ -19,10 +19,10 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # The Wildcard Nuke! Allows any frontend to connect.
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=["*"],      # This tells FastAPI to accept requests from ANY website
+    allow_credentials=False,  # This MUST be False when using "*" or the browser will block it
+    allow_methods=["*"],      # Allows POST, GET, OPTIONS, etc.
+    allow_headers=["*"],      # Allows all headers
 )
 
 
